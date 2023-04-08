@@ -30,7 +30,7 @@ import static me.dragonappear.domain.main.exception.CustomExceptionError.NOT_EXI
 
 @RestController
 @RequiredArgsConstructor
-public class ShortLinkController {
+public class ShortLinkApiController {
 
     private final ShortLinkService shortLinkService;
     private final ShortLinkRepository shortLinkRepository;

@@ -1,9 +1,9 @@
 package me.dragonappear.domain.link.docs;
 
-import me.dragonappear.domain.link.factory.ShortLinkFactory;
-import me.dragonappear.infra.RestDocs;
 import me.dragonappear.domain.link.ShortLinkEntity;
 import me.dragonappear.domain.link.ShortLinkRepository;
+import me.dragonappear.domain.link.factory.ShortLinkFactory;
+import me.dragonappear.infra.RestDocs;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RestDocs
-public class ShortLinkControllerRestDocs {
+public class ShortLinkApiControllerRestDocs {
 
     @Autowired
     MockMvc mockMvc;

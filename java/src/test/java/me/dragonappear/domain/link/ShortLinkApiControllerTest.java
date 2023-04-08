@@ -1,11 +1,10 @@
 package me.dragonappear.domain.link;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import me.dragonappear.domain.link.factory.ShortLinkFactory;
-import me.dragonappear.infra.MockMvcTest;
 import lombok.extern.slf4j.Slf4j;
+import me.dragonappear.domain.link.factory.ShortLinkFactory;
 import me.dragonappear.domain.main.exception.Custom4xxException;
+import me.dragonappear.infra.MockMvcTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,6 @@ import java.nio.file.Files;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-
 import static me.dragonappear.domain.link.util.DateTimeFormat.getDateTime;
 import static me.dragonappear.domain.main.exception.CustomExceptionError.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Slf4j
 @MockMvcTest
-class ShortLinkControllerTest {
+class ShortLinkApiControllerTest {
 
     @Autowired
     MockMvc mockMvc;

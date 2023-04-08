@@ -18,10 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
-public class ShortLinkControllerMockTest {
+public class ShortLinkApiControllerMockTest {
 
     @InjectMocks
-    private ShortLinkController shortLinkController;
+    private ShortLinkApiController shortLinkApiController;
 
     @Mock
     private ShortLinkService shortLinkService;
@@ -42,7 +42,7 @@ public class ShortLinkControllerMockTest {
         Mockito.doThrow(new Custom5xxException(EXHAUSTED_SHORT_LINK)).when(shortLinkService).createShortUrl(ShortLinkFactory.HOST);
 
         //when
-        assertThrows(Custom5xxException.class, () -> shortLinkController.createShortLink(request));
+        assertThrows(Custom5xxException.class, () -> shortLinkApiController.createShortLink(request));
     }
 
 
