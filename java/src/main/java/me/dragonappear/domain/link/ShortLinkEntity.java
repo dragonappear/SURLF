@@ -16,7 +16,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "short_link")
+@Table(name = "short_link", indexes = {
+        @Index(name = "uk_short_id", columnList = "short_id"),
+        @Index(name = "idx_client_info", columnList = "user_agent, client_ip")
+
+})
 public class ShortLinkEntity {
 
     @Id
