@@ -25,9 +25,10 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model, HttpServletRequest httpServletRequest) {
 
-        String remoteAddr = httpServletRequest.getRemoteAddr();
+        String ipAddress = httpServletRequest.getRemoteAddr();
+        String userAgent = httpServletRequest.getHeader("User-Agent");
 
-        List<ShortLinkDto> shortLinks = shortLinkRepository.findByClientIp(remoteAddr)
+        List<ShortLinkDto> shortLinks = shortLinkRepository.findByClientIpAndUserAgent(ipAddress, userAgent)
                 .stream()
                 .map(ShortLinkDto::new)
                 .toList();

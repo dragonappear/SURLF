@@ -20,7 +20,8 @@ public interface ShortLinkRepository extends JpaRepository<ShortLinkEntity, Long
     @QueryHints(value = @QueryHint(name = "org.hibernate.annotations.QueryHints.USE_INDEXES", value = "uk_short_id"))
     Optional<ShortLinkEntity> findByShortId(String shortId);
 
-    List<ShortLinkEntity> findByClientIp(String clientIp);
+    @QueryHints(value = @QueryHint(name = "org.hibernate.annotations.QueryHints.USE_INDEXES", value = "idx_client_info"))
+    List<ShortLinkEntity> findByClientIpAndUserAgent(String clientIp, String userAgent);
 
     @QueryHints(value = @QueryHint(name = "org.hibernate.annotations.QueryHints.USE_INDEXES", value = "uk_short_id"))
     boolean existsByShortId(String shortId);
