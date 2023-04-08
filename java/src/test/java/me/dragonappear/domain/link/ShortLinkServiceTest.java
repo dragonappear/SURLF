@@ -60,7 +60,7 @@ class ShortLinkServiceTest {
         ShortLinkCreateRequest request = shortLinkFactory.createShortLinkCreateRequest(ShortLinkFactory.HOST + ShortLinkFactory.PATH);
 
         // when
-        ShortLinkEntity newShortLinkEntity = shortLinkService.createShortUrl(request.getUrl(), CLIENT_IP, USER_AGENT);
+        ShortLinkEntity newShortLinkEntity = shortLinkService.createShortLink(request.getUrl(), CLIENT_IP, USER_AGENT);
 
         // then
         assertThatShortLinkCreated(newShortLinkEntity);
@@ -76,7 +76,7 @@ class ShortLinkServiceTest {
         ShortLinkEntity prevShortLinkEntity = shortLinkFactory.createShortLinkEntity(url);
 
         // when
-        ShortLinkEntity newShortLinkEntity = shortLinkService.createShortUrl(request.getUrl(), CLIENT_IP, USER_AGENT);
+        ShortLinkEntity newShortLinkEntity = shortLinkService.createShortLink(request.getUrl(), CLIENT_IP, USER_AGENT);
 
         // then
         assertThatShortLinkCreatedWithAnotherShortLink(prevShortLinkEntity, newShortLinkEntity);

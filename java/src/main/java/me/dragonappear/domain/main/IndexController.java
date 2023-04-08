@@ -46,7 +46,7 @@ public class IndexController {
         String ipAddress = httpServletRequest.getRemoteAddr();
         String userAgent = httpServletRequest.getHeader("User-Agent");
 
-        shortLinkService.createShortUrl(shortLinkCreateRequest.getUrl(), ipAddress, userAgent);
+        shortLinkService.createShortLink(shortLinkCreateRequest.getUrl(), ipAddress, userAgent);
         return "redirect:/";
     }
 

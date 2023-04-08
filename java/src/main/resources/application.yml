@@ -17,21 +17,3 @@ spring:
     redis:
       host: localhost
       port: 6379
-
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-
-  datasource:
-    url: ${rds.host}
-    username: ${rds.username}
-    password: ${rds.password}
-    driver-class-name: org.mariadb.jdbc.Driver
-
-  jpa:
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true

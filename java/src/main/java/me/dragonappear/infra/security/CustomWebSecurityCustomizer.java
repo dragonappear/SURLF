@@ -12,10 +12,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 30)
 public class CustomWebSecurityCustomizer implements WebSecurityCustomizer {
 
     @Override

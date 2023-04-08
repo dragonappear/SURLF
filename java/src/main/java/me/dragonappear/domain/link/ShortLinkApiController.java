@@ -6,14 +6,11 @@ import lombok.RequiredArgsConstructor;
 import me.dragonappear.domain.link.dto.ShortLinkDto;
 import me.dragonappear.domain.link.request.ShortLinkCreateRequest;
 import me.dragonappear.domain.link.validator.UrlValidator;
-import me.dragonappear.domain.main.exception.Custom4xxException;
 import me.dragonappear.domain.main.response.ApiResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import static me.dragonappear.domain.main.exception.CustomExceptionError.NOT_EXIST_SHORT_ID;
 
 
 /**
@@ -44,21 +41,21 @@ public class ShortLinkApiController {
         String ipAddress = httpServletRequest.getRemoteAddr();
         String userAgent = httpServletRequest.getHeader("User-Agent");
 
-        ShortLinkEntity shortLinkEntity = shortLinkService.createShortUrl(shortLinkCreateRequest.getUrl(), ipAddress, userAgent);
+        ShortLinkEntity shortLinkEntity = shortLinkService.createShortLink(shortLinkCreateRequest.getUrl(), ipAddress, userAgent);
         ApiResponse apiResponse = new ApiResponse(new ShortLinkDto(shortLinkEntity));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @GetMapping("/short-links/{short_id}")
     public ResponseEntity<ApiResponse> getShortLink(@PathVariable(name = "short_id") String shortId) {
-        ShortLinkEntity shortLinkEntity = shortLinkRepository.findByShortId(shortId).orElseThrow(() -> new Custom4xxException(NOT_EXIST_SHORT_ID));
+        ShortLinkEntity shortLinkEntity = shortLinkService.getShortLink(shortId);
         ApiResponse apiResponse = new ApiResponse(new ShortLinkDto(shortLinkEntity));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @GetMapping("/r/{short_id}")
     public ResponseEntity<ApiResponse> redirectToOriginalUrl(@PathVariable(name = "short_id") String shortId) {
-        ShortLinkEntity shortLinkEntity = shortLinkRepository.findByShortId(shortId).orElseThrow(() -> new Custom4xxException(NOT_EXIST_SHORT_ID));
+        ShortLinkEntity shortLinkEntity = shortLinkService.getShortLink(shortId);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", shortLinkEntity.getOriginalUrl());
         return new ResponseEntity<>(headers, HttpStatus.MOVED_TEMPORARILY);

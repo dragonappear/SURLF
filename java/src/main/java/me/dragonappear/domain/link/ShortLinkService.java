@@ -1,13 +1,16 @@
 package me.dragonappear.domain.link;
 
 import lombok.RequiredArgsConstructor;
+import me.dragonappear.domain.main.exception.Custom4xxException;
 import me.dragonappear.domain.main.exception.Custom5xxException;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 import static me.dragonappear.domain.main.exception.CustomExceptionError.EXHAUSTED_SHORT_LINK;
+import static me.dragonappear.domain.main.exception.CustomExceptionError.NOT_EXIST_SHORT_ID;
 
 
 /**
@@ -26,11 +29,17 @@ public class ShortLinkService {
 
     private final ShortLinkRepository shortLinkRepository;
 
-    public ShortLinkEntity createShortUrl(String url, String clientIp, String userAgent) {
+    public ShortLinkEntity createShortLink(String url, String clientIp, String userAgent) {
         String randomShortId = createRandomShortId();
         ShortLinkEntity newShortLinkEntity = ShortLinkEntity.createShortUrlEntity(url, randomShortId, clientIp, userAgent);
         return shortLinkRepository.save(newShortLinkEntity);
     }
+
+    @Cacheable(value = "ShortLinkEntity", key = "#shortId", cacheManager = "cacheManager")
+    public ShortLinkEntity getShortLink(String shortId) {
+        return shortLinkRepository.findByShortId(shortId).orElseThrow(() -> new Custom4xxException(NOT_EXIST_SHORT_ID));
+    }
+
 
     public String createRandomShortId() {
 

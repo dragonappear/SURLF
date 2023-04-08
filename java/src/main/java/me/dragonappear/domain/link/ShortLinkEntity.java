@@ -10,17 +10,17 @@ import java.time.LocalDateTime;
  * This is an entity layer corresponding to the domain.
  */
 
-@EqualsAndHashCode(of = "id")
-@AllArgsConstructor
-@Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
-@Entity
 @Table(name = "short_link", indexes = {
         @Index(name = "uk_short_id", columnList = "short_id"),
         @Index(name = "idx_client_info", columnList = "user_agent, client_ip")
 
 })
+@Entity
+@Getter
+@Builder
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ShortLinkEntity {
 
     @Id
@@ -43,7 +43,6 @@ public class ShortLinkEntity {
 
     @Column(name = "user_agent")
     private String userAgent;
-
 
     public static ShortLinkEntity createShortUrlEntity(String originalUrl, String shortId, String clientIp, String userAgent) {
         return ShortLinkEntity.builder()
