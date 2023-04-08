@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>ABITLY</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <style>
+        header.masthead {
+            position: relative;
+            background: #343a40 url("/assets/img/bg-masthead.jpg") no-repeat center center;
+            background-size: cover;
+            padding-top: 8rem;
+            padding-bottom: 8rem;
+        }
+
+        header.masthead:before {
+            content: "";
+            position: absolute;
+            background-color: #1c375e;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0.5;
+        }
+
+        header.masthead h1, header.masthead .h1 {
+            font-size: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            header.masthead {
+                padding-top: 12rem;
+                padding-bottom: 12rem;
+            }
+
+            header.masthead h1, header.masthead .h1 {
+                font-size: 3rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light static-top">
+    <div class="container">
+        <a class="navbar-brand" href="#!">ABITLY</a>
+        <a class="btn btn-primary" href="#signup">Sign Up</a>
+    </div>
+</nav>
+
+<header class="masthead">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-8">
+                <div class="text-center text-white">
+                    <h1 class="mb-5">Fast is Good, Faster is better.</h1>
+                    <form class="form-subscribe" id="urlForm" method="post"
+                          th:action
+                          th:object="${shortLinkCreateRequest}">
+                        <div class="row">
+                            <div class="col">
+                                <input class="form-control form-control-lg" id="originalUrl" type="url"
+                                       placeholder="You can shorten your original link and track your short link."
+                                       th:field="*{url}"
+                                       data-sb-validations="required,url" required>
+
+                                <div class="invalid-feedback text-white" data-sb-feedback="originalUrl:required">
+                                    Url is required.
+                                </div>
+
+                                <div class="invalid-feedback text-white" data-sb-feedback="originalUrl:url">
+                                    Url is not valid.
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <div class="d-none" id="submitErrorMessage">
+                            <div class="text-center text-danger mb-3">Error sending message!</div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="container position-relative">
+    <div class="justify-content-center">
+        <table class="table table-hover" th:if="${shortLinks.size() > 0}">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 250px">Date</th>
+                <th scope="col" style="width: 150px">Short Link</th>
+                <th scope="col">Original Link</th>
+                <th scope="col">Chart</th>
+            </tr>
+            </thead>
+            <tbody th:each="shortLink: ${shortLinks}">
+            <tr>
+                <td th:text="${shortLink.createdAt}">shortId</td>
+                <td th:text="${shortLink.shortId}">shortId</td>
+                <td th:text="${shortLink.url}">url</td>
+                <td><a th:href="@{/statics/{id}(id=${shortLink.shortId})}">
+                    <img src="/assets/img/bar-chart.png" width="20" height="20"></a></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+</html>
