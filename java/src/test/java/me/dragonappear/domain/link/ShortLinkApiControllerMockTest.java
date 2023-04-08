@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 import static me.dragonappear.domain.main.exception.CustomExceptionError.EXHAUSTED_SHORT_LINK;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -39,10 +40,10 @@ public class ShortLinkApiControllerMockTest {
         //given
         ShortLinkCreateRequest request = shortLinkFactory.createShortLinkCreateRequest(ShortLinkFactory.HOST);
         Mockito.doNothing().when(urlValidator).validate(any());
-        Mockito.doThrow(new Custom5xxException(EXHAUSTED_SHORT_LINK)).when(shortLinkService).createShortUrl(ShortLinkFactory.HOST);
+        Mockito.doThrow(new Custom5xxException(EXHAUSTED_SHORT_LINK)).when(shortLinkService).createShortUrl(any(), any());
 
         //when
-        assertThrows(Custom5xxException.class, () -> shortLinkApiController.createShortLink(request));
+        assertThrows(Custom5xxException.class, () -> shortLinkApiController.createShortLink(request, new MockHttpServletRequest()));
     }
 
 

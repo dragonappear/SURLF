@@ -1,5 +1,6 @@
 package me.dragonappear.domain.link;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import me.dragonappear.domain.link.dto.ShortLinkDto;
@@ -37,9 +38,12 @@ public class ShortLinkApiController {
     private final UrlValidator urlValidator;
 
     @PostMapping("/short-links")
-    public ResponseEntity<ApiResponse> createShortLink(@RequestBody @Valid ShortLinkCreateRequest request) {
-        urlValidator.validate(request.getUrl());
-        ShortLinkEntity shortLinkEntity = shortLinkService.createShortUrl(request.getUrl());
+    public ResponseEntity<ApiResponse> createShortLink(@RequestBody @Valid ShortLinkCreateRequest shortLinkCreateRequest, HttpServletRequest httpServletRequest) {
+        urlValidator.validate(shortLinkCreateRequest.getUrl());
+
+        String remoteAddr = httpServletRequest.getRemoteAddr();
+
+        ShortLinkEntity shortLinkEntity = shortLinkService.createShortUrl(shortLinkCreateRequest.getUrl(), remoteAddr);
         ApiResponse apiResponse = new ApiResponse(new ShortLinkDto(shortLinkEntity));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }

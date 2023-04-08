@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,6 +19,8 @@ public interface ShortLinkRepository extends JpaRepository<ShortLinkEntity, Long
 
     @QueryHints(value = @QueryHint(name = "org.hibernate.annotations.QueryHints.USE_INDEXES", value = "uk_short_id"))
     Optional<ShortLinkEntity> findByShortId(String shortId);
+
+    List<ShortLinkEntity> findByClientIp(String clientIp);
 
     @QueryHints(value = @QueryHint(name = "org.hibernate.annotations.QueryHints.USE_INDEXES", value = "uk_short_id"))
     boolean existsByShortId(String shortId);

@@ -18,6 +18,8 @@ import org.springframework.test.annotation.Rollback;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import static me.dragonappear.domain.link.factory.ShortLinkFactory.CLIENT_IP;
+
 
 /**
  * This test is for ShortLinkService which is responsible for service layer.
@@ -57,7 +59,7 @@ class ShortLinkServiceTest {
         ShortLinkCreateRequest request = shortLinkFactory.createShortLinkCreateRequest(ShortLinkFactory.HOST + ShortLinkFactory.PATH);
 
         // when
-        ShortLinkEntity newShortLinkEntity = shortLinkService.createShortUrl(request.getUrl());
+        ShortLinkEntity newShortLinkEntity = shortLinkService.createShortUrl(request.getUrl(), CLIENT_IP);
 
         // then
         assertThatShortLinkCreated(newShortLinkEntity);
@@ -73,7 +75,7 @@ class ShortLinkServiceTest {
         ShortLinkEntity prevShortLinkEntity = shortLinkFactory.createShortLinkEntity(url);
 
         // when
-        ShortLinkEntity newShortLinkEntity = shortLinkService.createShortUrl(request.getUrl());
+        ShortLinkEntity newShortLinkEntity = shortLinkService.createShortUrl(request.getUrl(), CLIENT_IP);
 
         // then
         assertThatShortLinkCreatedWithAnotherShortLink(prevShortLinkEntity, newShortLinkEntity);
