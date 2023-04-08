@@ -12,10 +12,10 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds = 30)
 public class SessionConfig {
 
-    @Value("${redis.host}")
+    @Value("${spring.data.redis.host}")
     private String host;
 
-    @Value("${redis.port}")
+    @Value("${spring.data.redis.port}")
     private String port;
 
     @Bean

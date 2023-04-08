@@ -1,4 +1,5 @@
 spring:
+
   datasource:
     url: jdbc:h2:mem:testdb;MODE=MariaDB;
     username: sa
@@ -13,9 +14,10 @@ spring:
     hibernate:
       ddl-auto: update
 
-redis:
-  host: localhost
-  port: 6379
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
 ---
 spring:
