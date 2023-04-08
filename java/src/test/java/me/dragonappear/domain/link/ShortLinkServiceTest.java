@@ -1,8 +1,8 @@
 package me.dragonappear.domain.link;
 
 
-import me.dragonappear.domain.link.factory.ShortLinkFactory;
 import lombok.extern.slf4j.Slf4j;
+import me.dragonappear.domain.link.factory.ShortLinkFactory;
 import me.dragonappear.domain.link.request.ShortLinkCreateRequest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -65,7 +65,7 @@ class ShortLinkServiceTest {
 
     @ParameterizedTest
     @ValueSource(strings = {ShortLinkFactory.HOST + ShortLinkFactory.PATH, "https://www.google.com" + ShortLinkFactory.PATH, "https://www.naver.com" + ShortLinkFactory.PATH, "https://chat.openai.com" + ShortLinkFactory.PATH})
-    @DisplayName("Short Link Entity 조회만, 새롭게 생성X - 존재하는 URL")
+    @DisplayName("Short Link Entity 새롭게 생성 - 존재하는 URL")
     void create_short_link_with_wrong_request(String url) throws Exception {
 
         // given
@@ -76,7 +76,7 @@ class ShortLinkServiceTest {
         ShortLinkEntity newShortLinkEntity = shortLinkService.createShortUrl(request.getUrl());
 
         // then
-        assertThatShortLinkNotCreated(prevShortLinkEntity, newShortLinkEntity);
+        assertThatShortLinkCreatedWithAnotherShortLink(prevShortLinkEntity, newShortLinkEntity);
     }
 
     @RepeatedTest(1_000)
@@ -93,9 +93,9 @@ class ShortLinkServiceTest {
         Assertions.assertThat(randomShortId).doesNotContainPattern(Pattern.compile("^[^0-9a-f]+")); // Check to include only numeric characters.
     }
 
-    private void assertThatShortLinkNotCreated(ShortLinkEntity prevShortLinkEntity, ShortLinkEntity newShortLinkEntity) {
-        Assertions.assertThat(prevShortLinkEntity).isEqualTo(newShortLinkEntity);
-        Assertions.assertThat(prevShortLinkEntity.getShortId()).isEqualTo(newShortLinkEntity.getShortId());
+    private void assertThatShortLinkCreatedWithAnotherShortLink(ShortLinkEntity prevShortLinkEntity, ShortLinkEntity newShortLinkEntity) {
+        Assertions.assertThat(prevShortLinkEntity).isNotEqualTo(newShortLinkEntity);
+        Assertions.assertThat(prevShortLinkEntity.getShortId()).isNotEqualTo(newShortLinkEntity.getShortId());
         Assertions.assertThat(prevShortLinkEntity.getOriginalUrl()).isEqualTo(newShortLinkEntity.getOriginalUrl());
     }
 

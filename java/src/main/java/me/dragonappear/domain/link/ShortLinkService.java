@@ -5,7 +5,6 @@ import me.dragonappear.domain.main.exception.Custom5xxException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import static me.dragonappear.domain.main.exception.CustomExceptionError.EXHAUSTED_SHORT_LINK;
@@ -28,16 +27,9 @@ public class ShortLinkService {
     private final ShortLinkRepository shortLinkRepository;
 
     public ShortLinkEntity createShortUrl(String url) {
-
-        Optional<ShortLinkEntity> byUrl = shortLinkRepository.findByOriginalUrl(url);
-
-        if (byUrl.isEmpty()) {
-            String randomShortId = createRandomShortId();
-            ShortLinkEntity newShortLinkEntity = ShortLinkEntity.createShortUrlEntity(url, randomShortId);
-            return shortLinkRepository.save(newShortLinkEntity);
-        }
-
-        return byUrl.get();
+        String randomShortId = createRandomShortId();
+        ShortLinkEntity newShortLinkEntity = ShortLinkEntity.createShortUrlEntity(url, randomShortId);
+        return shortLinkRepository.save(newShortLinkEntity);
     }
 
     public String createRandomShortId() {
