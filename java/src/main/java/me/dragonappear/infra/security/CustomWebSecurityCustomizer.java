@@ -4,13 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -36,15 +33,9 @@ public class CustomWebSecurityCustomizer implements WebSecurityCustomizer {
                 .logout().disable()
                 .rememberMe().disable()
                 .csrf().disable()
-                .sessionManagement(getSessionManagementConfigurer());
+                .sessionManagement().disable();
 
         return http.build();
-    }
-
-    private Customizer<SessionManagementConfigurer<HttpSecurity>> getSessionManagementConfigurer() {
-        return (SessionManagementConfigurer) -> SessionManagementConfigurer
-                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                .sessionFixation().changeSessionId();
     }
 
 }
