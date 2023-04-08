@@ -26,9 +26,9 @@ public class ShortLinkService {
 
     private final ShortLinkRepository shortLinkRepository;
 
-    public ShortLinkEntity createShortUrl(String url, String clientIp) {
+    public ShortLinkEntity createShortUrl(String url, String clientIp, String userAgent) {
         String randomShortId = createRandomShortId();
-        ShortLinkEntity newShortLinkEntity = ShortLinkEntity.createShortUrlEntity(url, randomShortId, clientIp);
+        ShortLinkEntity newShortLinkEntity = ShortLinkEntity.createShortUrlEntity(url, randomShortId, clientIp, userAgent);
         return shortLinkRepository.save(newShortLinkEntity);
     }
 

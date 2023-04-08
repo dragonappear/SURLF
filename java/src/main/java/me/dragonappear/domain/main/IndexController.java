@@ -41,8 +41,12 @@ public class IndexController {
     @PostMapping("/")
     public String shortLinkRequest(ShortLinkCreateRequest shortLinkCreateRequest, HttpServletRequest httpServletRequest) {
         urlValidator.validate(shortLinkCreateRequest.getUrl());
-        shortLinkService.createShortUrl(shortLinkCreateRequest.getUrl(), httpServletRequest.getRemoteAddr());
+
+        String ipAddress = httpServletRequest.getRemoteAddr();
+        String userAgent = httpServletRequest.getHeader("User-Agent");
+
+        shortLinkService.createShortUrl(shortLinkCreateRequest.getUrl(), ipAddress, userAgent);
         return "redirect:/";
     }
-    
+
 }

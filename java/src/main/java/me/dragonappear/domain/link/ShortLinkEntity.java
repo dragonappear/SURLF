@@ -37,12 +37,17 @@ public class ShortLinkEntity {
     @Column(name = "client_ip")
     private String clientIp;
 
-    public static ShortLinkEntity createShortUrlEntity(String originalUrl, String shortId, String clientIp) {
+    @Column(name = "user_agent")
+    private String userAgent;
+
+
+    public static ShortLinkEntity createShortUrlEntity(String originalUrl, String shortId, String clientIp, String userAgent) {
         return ShortLinkEntity.builder()
                 .shortId(shortId)
                 .originalUrl(originalUrl)
                 .createdAt(LocalDateTime.now())
                 .clientIp(clientIp)
+                .userAgent(userAgent)
                 .build();
     }
 

@@ -40,7 +40,7 @@ public class ShortLinkApiControllerMockTest {
         //given
         ShortLinkCreateRequest request = shortLinkFactory.createShortLinkCreateRequest(ShortLinkFactory.HOST);
         Mockito.doNothing().when(urlValidator).validate(any());
-        Mockito.doThrow(new Custom5xxException(EXHAUSTED_SHORT_LINK)).when(shortLinkService).createShortUrl(any(), any());
+        Mockito.doThrow(new Custom5xxException(EXHAUSTED_SHORT_LINK)).when(shortLinkService).createShortUrl(any(), any(), any());
 
         //when
         assertThrows(Custom5xxException.class, () -> shortLinkApiController.createShortLink(request, new MockHttpServletRequest()));

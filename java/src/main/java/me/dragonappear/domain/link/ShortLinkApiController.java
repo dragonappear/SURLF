@@ -41,9 +41,10 @@ public class ShortLinkApiController {
     public ResponseEntity<ApiResponse> createShortLink(@RequestBody @Valid ShortLinkCreateRequest shortLinkCreateRequest, HttpServletRequest httpServletRequest) {
         urlValidator.validate(shortLinkCreateRequest.getUrl());
 
-        String remoteAddr = httpServletRequest.getRemoteAddr();
+        String ipAddress = httpServletRequest.getRemoteAddr();
+        String userAgent = httpServletRequest.getHeader("User-Agent");
 
-        ShortLinkEntity shortLinkEntity = shortLinkService.createShortUrl(shortLinkCreateRequest.getUrl(), remoteAddr);
+        ShortLinkEntity shortLinkEntity = shortLinkService.createShortUrl(shortLinkCreateRequest.getUrl(), ipAddress, userAgent);
         ApiResponse apiResponse = new ApiResponse(new ShortLinkDto(shortLinkEntity));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
