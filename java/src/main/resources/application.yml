@@ -1,10 +1,9 @@
 spring:
-
   datasource:
-    url: jdbc:h2:mem:testdb;MODE=MariaDB;
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mariadb://localhost:3306/tiny_link
+    username: root
+    password: 1234
+    driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:
     properties:
