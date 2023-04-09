@@ -6,6 +6,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### nginx
+nodeenv-16
+
 ### STS ###
 .apt_generated
 .classpath
