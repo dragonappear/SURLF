@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.*;
 public class ShortLinkApiController {
 
     private final ShortLinkService shortLinkService;
-    private final ShortLinkRepository shortLinkRepository;
     private final UrlValidator urlValidator;
 
     @PostMapping("/short-links")
