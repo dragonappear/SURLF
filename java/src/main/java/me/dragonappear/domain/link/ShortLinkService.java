@@ -1,9 +1,12 @@
 package me.dragonappear.domain.link;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import me.dragonappear.domain.main.exception.Custom4xxException;
 import me.dragonappear.domain.main.exception.Custom5xxException;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +31,8 @@ import static me.dragonappear.domain.main.exception.CustomExceptionError.NOT_EXI
 public class ShortLinkService {
 
     private final ShortLinkRepository shortLinkRepository;
+    private final KafkaTemplate<Integer, String> template;
+    private final ObjectMapper objectMapper;
 
     public ShortLinkEntity createShortLink(String url, String clientIp, String userAgent) {
         String randomShortId = createRandomShortId();
@@ -40,7 +45,15 @@ public class ShortLinkService {
         return shortLinkRepository.findByShortId(shortId).orElseThrow(() -> new Custom4xxException(NOT_EXIST_SHORT_ID));
     }
 
-
+    public void sendShortLinkLogToKafka(ShortLinkEntity shortLinkEntity) {
+        try {
+            String json = objectMapper.writeValueAsString(shortLinkEntity);
+            template.send("short-link.json", json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public String createRandomShortId() {
 
         for (int i = 3; i < 14; i++) {

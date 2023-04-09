@@ -1,5 +1,6 @@
 package me.dragonappear.domain.link;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -46,15 +47,17 @@ public class ShortLinkApiController {
     }
 
     @GetMapping("/short-links/{short_id}")
-    public ResponseEntity<ApiResponse> getShortLink(@PathVariable(name = "short_id") String shortId) {
+    public ResponseEntity<ApiResponse> getShortLink(@PathVariable(name = "short_id") String shortId) throws JsonProcessingException {
         ShortLinkEntity shortLinkEntity = shortLinkService.getShortLink(shortId);
+        shortLinkService.sendShortLinkLogToKafka(shortLinkEntity);
         ApiResponse apiResponse = new ApiResponse(new ShortLinkDto(shortLinkEntity));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @GetMapping("/r/{short_id}")
-    public ResponseEntity<ApiResponse> redirectToOriginalUrl(@PathVariable(name = "short_id") String shortId) {
+    public ResponseEntity<ApiResponse> redirectToOriginalUrl(@PathVariable(name = "short_id") String shortId) throws JsonProcessingException {
         ShortLinkEntity shortLinkEntity = shortLinkService.getShortLink(shortId);
+        shortLinkService.sendShortLinkLogToKafka(shortLinkEntity);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", shortLinkEntity.getOriginalUrl());
         return new ResponseEntity<>(headers, HttpStatus.MOVED_TEMPORARILY);
