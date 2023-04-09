@@ -76,21 +76,22 @@
   - `bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092`
 
 - 토픽 생성
-  - `shortLink.log`이란 이름으로 토픽 생성
-  - `bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --config retention.ms=172800000 --topic shortLink.log`
+  - 토픽 작명은 컨벤션 혹은 팀에서 정한대로 생성한다
+  - 나는 테스트용 `short-link.json`이란 이름으로 토픽 생성
+  - `bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --partitions 3 --config retention.ms=172800000 --topic short-link.json`
     - `config retention.ms`: 토픽 데이터 유지 기간
       - 172800000ms 는 2일을 의미하고, 2일이 지난 토픽의 데이터는 삭제된다.
     - `topic`: 토픽 이름
   - 토픽 조회: `bin/kafka-topics.sh --bootstrap-server localhost:9092 --list`
-  - 상세 조회 : `bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic shortLink.log`
+  - 상세 조회 : `bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic short-link.json`
 
 - 토픽 옵션 수정
   - 파티션 수정: `kafka-topics.sh`
   - 토픽 삭제 정책(리텐션 기간): `kafka-configs.sh`
   - 파티션 개수 3개 -> 4개로 수정
-    - `bin/kafka-topics.sh --bootstrap-server localhost:9092 --topic shortLink.log --alter --partitions 4`
+    - `bin/kafka-topics.sh --bootstrap-server localhost:9092 --topic short-link.json --alter --partitions 4`
   - 리텐션 기간 수정
-    - `bin/kafka-configs.sh --bootstrap-server localhost:9092 --entity-type topics --entity-name shortLink.log --alter --add-config retention.ms=86400000`
+    - `bin/kafka-configs.sh --bootstrap-server localhost:9092 --entity-type topics --entity-name short-link.json --alter --add-config retention.ms=86400000`
 
 ---
 
