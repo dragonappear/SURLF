@@ -1,13 +1,14 @@
 package me.dragonappear.domain.link;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import me.dragonappear.domain.link.dto.ShortLinkDto;
+import me.dragonappear.domain.link.event.ShortLinkKafkaEvent;
 import me.dragonappear.domain.link.request.ShortLinkCreateRequest;
 import me.dragonappear.domain.link.validator.UrlValidator;
 import me.dragonappear.domain.main.response.ApiResponse;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,7 @@ public class ShortLinkApiController {
 
     private final ShortLinkService shortLinkService;
     private final UrlValidator urlValidator;
+    private final ApplicationEventPublisher eventPublisher;
 
     @PostMapping("/short-links")
     public ResponseEntity<ApiResponse> createShortLink(@RequestBody @Valid ShortLinkCreateRequest shortLinkCreateRequest, HttpServletRequest httpServletRequest) {
@@ -47,17 +49,21 @@ public class ShortLinkApiController {
     }
 
     @GetMapping("/short-links/{short_id}")
-    public ResponseEntity<ApiResponse> getShortLink(@PathVariable(name = "short_id") String shortId) throws JsonProcessingException {
+    public ResponseEntity<ApiResponse> getShortLink(@PathVariable(name = "short_id") String shortId) {
         ShortLinkEntity shortLinkEntity = shortLinkService.getShortLink(shortId);
-        shortLinkService.sendShortLinkLogToKafka(shortLinkEntity);
+
+        eventPublisher.publishEvent(new ShortLinkKafkaEvent(shortLinkEntity));
+
         ApiResponse apiResponse = new ApiResponse(new ShortLinkDto(shortLinkEntity));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @GetMapping("/r/{short_id}")
-    public ResponseEntity<ApiResponse> redirectToOriginalUrl(@PathVariable(name = "short_id") String shortId) throws JsonProcessingException {
+    public ResponseEntity<ApiResponse> redirectToOriginalUrl(@PathVariable(name = "short_id") String shortId) {
         ShortLinkEntity shortLinkEntity = shortLinkService.getShortLink(shortId);
-        shortLinkService.sendShortLinkLogToKafka(shortLinkEntity);
+
+        eventPublisher.publishEvent(new ShortLinkKafkaEvent(shortLinkEntity));
+
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", shortLinkEntity.getOriginalUrl());
         return new ResponseEntity<>(headers, HttpStatus.MOVED_TEMPORARILY);
