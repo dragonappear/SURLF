@@ -8,6 +8,7 @@ build/
 
 ### nginx
 nodeenv-16
+node_modules
 
 ### STS ###
 .apt_generated
