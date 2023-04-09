@@ -26,58 +26,51 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        ErrorResponse errorResponse = getErrorResponse(NOT_VALID_ARGUMENT.getErrorCode(), ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+        ErrorResponse errorResponse = new ErrorResponse(NOT_VALID_ARGUMENT.getErrorCode(), ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     @ExceptionHandler(Custom4xxException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(Custom4xxException ex) {
-        ErrorResponse errorResponse = getErrorResponse(ex.getError().getErrorCode(), ex.getError().getErrorMsg());
+        ErrorResponse errorResponse = new ErrorResponse(ex.getError().getErrorCode(), ex.getError().getErrorMsg());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
-        ErrorResponse errorResponse = getErrorResponse(NOT_VALID_ARGUMENT.getErrorCode(), NOT_VALID_ARGUMENT.getErrorMsg());
+        ErrorResponse errorResponse = new ErrorResponse(NOT_VALID_ARGUMENT.getErrorCode(), NOT_VALID_ARGUMENT.getErrorMsg());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
-        ErrorResponse errorResponse = getErrorResponse(NOT_SUPPORTED_METHOD.getErrorCode(), NOT_SUPPORTED_METHOD.getErrorMsg());
+        ErrorResponse errorResponse = new ErrorResponse(NOT_SUPPORTED_METHOD.getErrorCode(), NOT_SUPPORTED_METHOD.getErrorMsg());
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(errorResponse);
     }
 
     @RequestMapping("/api/error/404")
     public ResponseEntity<ErrorResponse> error404() {
-        ErrorResponse errorResponse = getErrorResponse(NOT_FOUND_RESOURCE.getErrorCode(), NOT_FOUND_RESOURCE.getErrorMsg());
+        ErrorResponse errorResponse = new ErrorResponse(NOT_FOUND_RESOURCE.getErrorCode(), NOT_FOUND_RESOURCE.getErrorMsg());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
     @ExceptionHandler(Custom5xxException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(Custom5xxException ex) {
-        ErrorResponse errorResponse = getErrorResponse(ex.getError().getErrorCode(), ex.getError().getErrorMsg());
+        ErrorResponse errorResponse = new ErrorResponse(ex.getError().getErrorCode(), ex.getError().getErrorMsg());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException ex) {
-        ErrorResponse errorResponse = getErrorResponse(INTERNAL_SERVER_ERROR.getErrorCode(), INTERNAL_SERVER_ERROR.getErrorMsg());
+        ErrorResponse errorResponse = new ErrorResponse(INTERNAL_SERVER_ERROR.getErrorCode(), INTERNAL_SERVER_ERROR.getErrorMsg());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
 
     @RequestMapping("/api/error/500")
     public ResponseEntity<ErrorResponse> error500() {
-        ErrorResponse errorResponse = getErrorResponse(INTERNAL_SERVER_ERROR.getErrorCode(), INTERNAL_SERVER_ERROR.getErrorMsg());
+        ErrorResponse errorResponse = new ErrorResponse(INTERNAL_SERVER_ERROR.getErrorCode(), INTERNAL_SERVER_ERROR.getErrorMsg());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
 
-
-    private ErrorResponse getErrorResponse(int errorCode, String errorMsg) {
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setErrorCode(errorCode);
-        errorResponse.setErrorMsg(errorMsg);
-        return errorResponse;
-    }
 
 }

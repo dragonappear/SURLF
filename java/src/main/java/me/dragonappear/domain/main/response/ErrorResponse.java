@@ -1,6 +1,8 @@
 package me.dragonappear.domain.main.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Error Response
@@ -16,6 +18,8 @@ import lombok.Data;
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ErrorResponse {
     private int errorCode;
     private String errorMsg;
