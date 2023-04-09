@@ -1,12 +1,11 @@
 <script setup lang="ts"></script>
 
 <template>
-    <RouterView />
+  <RouterView />
 </template>
-    
+
 <style scoped>
 .content {
-    height: calc(100vh - 60px);
+  height: calc(100vh - 60px);
 }
 </style>
-  
