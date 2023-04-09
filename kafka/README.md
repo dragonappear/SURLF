@@ -53,10 +53,10 @@ AWS MSK 나 컨플루언트 클라우드를 활용하지 않고 직접 설치하
 
 ###  Commands Line
 
-- [카프카 브로커 실행 옵션 설정](./kafka-3.4.0-src/config/server.properties)
+- [카프카 브로커 실행 옵션 설정](./server.properties)
     - `advertised.listeners=PLAINTEXT://localhost:9092` : 로컬환경에서 실행할 경우
     -  `zookeeper.connect=localhost:2181`: 로컬환경에서 실행할 경우
-    -  
+  
 
 - Zookeeper 실행
   -   주키퍼는 카프카의 클러스터 설정 리더 정보, 컨트롤러 정보 등 카프카를 실행하는 데에 필요한 필수 어플리케이션
