@@ -40,7 +40,6 @@ public class ShortLinkService {
         return shortLinkRepository.findByShortId(shortId).orElseThrow(() -> new Custom4xxException(NOT_EXIST_SHORT_ID));
     }
 
-
     public String createRandomShortId() {
 
         for (int i = 3; i < 14; i++) {
