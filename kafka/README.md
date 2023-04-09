@@ -1,14 +1,12 @@
 # Apache-Kafka
----
 
-## Why Apache-Kafka
+## Apache-Kafka
 
 ![before-kafka](./images/before-kafka.png)
 
 ![after-kafka](./images/after-kafka.png)
 
-카프카는 4가지 특징을 가진다.
-
+**Features**:
 1. 높은 처리량
    - 묶음 전송
    - 파티션 단위로 데이터 분배 및 병렬 처리
@@ -20,13 +18,17 @@
 4. 고가용성
    
 
-카프라클 사용하면 데이터 스트림을 한 곳에서 실시간으로 관리할 수 있다.
+**Pros**:
+- 카프라클 사용하면 데이터 스트림을 한 곳에서 실시간으로 관리할 수 있다.
+- 소스 어플리케이션과 타겟 어플리케이션 사이의 의존도를 최소화하여 커플링을 완화한다.
+- 1:1 매칭으로 개발하고 운영하던 데이터 파이프라인에서 커플링으로 인해 한쪽의 이슈가 다른 한쪽의 어플리케이션에 영향을 미치곤 했지만, 카프카를 통해서 이러한 의존도를 낮출 수 있다.
+- 소스 어플리케이션에서 생성되는 데이터는 어느 타겟 애플리케이션으로 보낼 것인지 고민하지 않고 일단 카프카로 넣으면 된다.
 
-소스 어플리케이션과 타겟 어플리케이션 사이의 의존도를 최소화하여 커플링을 완화한다.
-
-1:1 매칭으로 개발하고 운영하던 데이터 파이프라인에서 커플링으로 인해 한쪽의 이슈가 다른 한쪽의 어플리케이션에 영향을 미치곤 했지만, 카프카를 통해서 이러한 의존도를 낮출 수 있다.
-
-소스 어플리케이션에서 생성되는 데이터는 어느 타겟 애플리케이션으로 보낼 것인지 고민하지 않고 일단 카프카로 넣으면 된다.
+**Cons**:
+- 운영 및 설정이 복잡
+- 장기 스토리지에 최적화되어있지 않음
+- 추가 도구 필요
+- 인증 및 권한 부여와 같은 내장 보안 기능이 없음
 
 
 ### Kafka Main Architecture
@@ -47,12 +49,9 @@
 
 ##  [Installation](https://kafka.apache.org/downloads)
 
-**AWS MSK 나 컨플루언트 클라우드를 활용하지 않고 직접 설치하여 운영한다.**
+AWS MSK 나 컨플루언트 클라우드를 활용하지 않고 직접 설치하여 구성한다.
 
-
----
-
-##  Commands Line
+###  Commands Line
 
 - [카프카 브로커 실행 옵션 설정](./kafka-3.4.0-src/config/server.properties)
     - `advertised.listeners=PLAINTEXT://localhost:9092` : 로컬환경에서 실행할 경우
@@ -77,11 +76,12 @@
 
 - 토픽 생성
   - 토픽 작명은 컨벤션 혹은 팀에서 정한대로 생성한다
-  - 나는 테스트용 `short-link.json`이란 이름으로 토픽 생성
+  - 테스트용 `short-link.json`이란 이름으로 토픽 생성
   - `bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --partitions 3 --config retention.ms=172800000 --topic short-link.json`
     - `config retention.ms`: 토픽 데이터 유지 기간
       - 172800000ms 는 2일을 의미하고, 2일이 지난 토픽의 데이터는 삭제된다.
     - `topic`: 토픽 이름
+    - `partitions`: 파티션 개수
   - 토픽 조회: `bin/kafka-topics.sh --bootstrap-server localhost:9092 --list`
   - 상세 조회 : `bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic short-link.json`
 
