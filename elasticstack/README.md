@@ -1,45 +1,49 @@
 # ElasticStack
 
----
-
 ## Tech
 
 - logstash: consume data from kafka and load to elasticsearch
 - elasticsearch: search engine
 - kibana: data visualization with elasticsearch
 
-### Features
-
-### Pros
-
-### Cons
-
-
 ---
 ## Demonstration
 
+![query.png](./query.png)
+![aggs.png](./aggs.png)
+
 ---
 ## Architecture
+
+![architecture.png](./architecture.png)
 
 
 ---
 ## [Installation](https://www.elastic.co/kr/elastic-stack/)
 
-Enterprise or AWS elasticsearch를 사용하지 않고 도커 혹은 직접 설치하여 구성한다.
+It is configured by installing dockers or by installing them directly without using Enterprise or AWS elasticsearch.
 
-### [Logstash](./logstash/logstash-kafka.conf)
+### Logstash
 
-Docker
-- https://www.elastic.co/guide/en/logstash/current/docker-config.html
-
-직접 설치
--   `bin/logstash -f config/logstash-kafka.conf`
-    - Input: Kafka `short-link.json` topic
-    - Output: Elasticsearch data node
+- pipeline
+  - [In: kafka, Out: Elasticsearch](./logstash/logstash-kafka.conf)
 
 ### ElasticSearch
 
+- short-link-index
+  - [policy](./elasticsearch/short-link-log-policy.json)
+    - 인덱스 생명주기 10일
+  - [index-template](./elasticsearch/short-link-log-template.json)
+    - 위 policy 적용
+  - [shortId statatics query](./elasticsearch/short-link-log-statics-query.json)
+
 ### Kibana
+
+---
+
+## ETC
+
+No security is set because this is for local environment
 
 ---
 

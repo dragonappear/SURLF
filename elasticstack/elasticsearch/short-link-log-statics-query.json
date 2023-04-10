@@ -1,0 +1,17 @@
+GET short-link-log-*/_search
+{
+  "query": {
+    "match": {
+      "shortId": "e4e"
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "index_counts": {
+      "terms": {
+        "field": "_index",
+        "size": 7
+      }
+    }
+  }
+}

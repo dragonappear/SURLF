@@ -1,0 +1,18 @@
+PUT _index_template/short-link-log-template
+{
+    "index_patterns": [
+        "short-link-log-*"
+    ],
+    "priority": 1,
+    "template": {
+        "settings": {
+            "index": {
+                "lifecycle": {
+                    "name": "short-link-log-policy",
+                    "rollover_alias": "moccozy-backend-business-log-info",
+                    "parse_origination_date": true
+                }
+            }
+        }
+    }
+}

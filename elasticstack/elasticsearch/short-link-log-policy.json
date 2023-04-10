@@ -1,0 +1,13 @@
+PUT /_ilm/policy/short-link-log-index-policy
+{
+    "policy": {
+        "phases": {
+            "delete": {
+                "min_age": "10d",
+                "actions": {
+                    "delete": {}
+                }
+            }
+        }
+    }
+}
