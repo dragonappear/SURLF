@@ -77,8 +77,10 @@ const post = function () {
         <el-table-column prop="shortId" label="shortId" width="180" />
         <el-table-column prop="url" label="url" />
         <el-table-column fixed="right" label="Detail" width="120">
-          <template #default>
-            <el-button link type="primary" size="small">Statistics</el-button>
+          <template #default="{ row }">
+            <router-link :to="{ name: 'statistics', params: { shortId: row.shortId } }">
+              <el-button type="primary" size="small">Statistics</el-button>
+            </router-link>
           </template>
         </el-table-column>
       </el-table>

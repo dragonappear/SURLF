@@ -22,7 +22,7 @@ public class LinkStatisticsApiController {
     private final LinkStatisticsService linkStatisticsService;
     private final ShortLinkService shortLinkService;
 
-    @GetMapping("/statics/{shortId}")
+    @GetMapping("/statistics/{shortId}")
     public ResponseEntity<ApiResponse> search(@PathVariable("shortId") String shortId) throws IOException {
         shortLinkService.getShortLink(shortId);
 
