@@ -13,8 +13,8 @@ This is a tiny url system design project that accommodates 1 billion requests a 
 - Web Server: [Nginx](./nginx)
 - WAS: [Java](./java), Go
 - Caching: [Redis](./redis)
-- Data Clustering: Kafka, ElasticStack
-- Infra: ECS with fargate
+- Data Clustering: [Kafka](./kafka/), [ElasticStack](./elasticstack/)
+- Infra: ECS
 
 ---
 ## Assumption

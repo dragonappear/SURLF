@@ -49,9 +49,14 @@
 
 ##  [Installation](https://kafka.apache.org/downloads)
 
-AWS MSK 나 컨플루언트 클라우드를 활용하지 않고 직접 설치하여 구성한다.
+AWS MSK 나 컨플루언트 클라우드를 활용하지 않고 docker 혹은 직접 설치하여 구성한다.
 
-###  Commands Line
+###  A. Docker
+
+- https://developer.confluent.io/quickstart/kafka-docker/
+
+
+###  B. Commands Line
 
 - [카프카 브로커 실행 옵션 설정](./server.properties)
     - `advertised.listeners=PLAINTEXT://localhost:9092` : 로컬환경에서 실행할 경우
