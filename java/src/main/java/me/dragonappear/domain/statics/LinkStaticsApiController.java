@@ -26,7 +26,7 @@ public class LinkStaticsApiController {
     public ResponseEntity<ApiResponse> search(@PathVariable("shortId") String shortId) throws IOException {
         shortLinkService.getShortLink(shortId);
 
-        List<LinkStaticsDto> dtos = linkStaticsService.getStaticsPerDay(shortId);
+        List<LinkStaticsDto> dtos = linkStaticsService.getLinkStaticsPer7days(shortId);
         ApiResponse apiResponse = new ApiResponse(dtos);
 
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);

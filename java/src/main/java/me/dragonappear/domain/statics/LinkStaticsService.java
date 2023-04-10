@@ -18,16 +18,16 @@ public class LinkStaticsService {
 
     private final ElasticsearchClient elasticsearchClient;
 
-    public List<LinkStaticsDto> getStaticsPerDay(String shortId) throws IOException {
+    public List<LinkStaticsDto> getLinkStaticsPer7days(String shortId) throws IOException {
 
         SearchResponse<Object> search = elasticsearchClient.search(s -> s
                 .index("short-link-log-*")
                 .query(q -> q.match(m -> m.field("shortId").query(shortId))).size(0)
                 .aggregations(Map.of("index_counts", AggregationBuilders.terms(a -> a.field("_index")))).size(7), Object.class);
 
-        StringTermsAggregate sterms = search.aggregations().get("index_counts").sterms();
+        StringTermsAggregate aggregate = search.aggregations().get("index_counts").sterms();
 
-        return sterms.buckets().array().stream().map(bucket -> {
+        return aggregate.buckets().array().stream().map(bucket -> {
 
             String stringValue = bucket.key().stringValue(); // short-link-log-2023.04.10
             int idx = bucket.key().stringValue().lastIndexOf("-");
