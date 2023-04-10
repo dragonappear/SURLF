@@ -1,11 +1,11 @@
-package me.dragonappear.domain.statics;
+package me.dragonappear.domain.statistics;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.aggregations.AggregationBuilders;
 import co.elastic.clients.elasticsearch._types.aggregations.StringTermsAggregate;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import lombok.RequiredArgsConstructor;
-import me.dragonappear.domain.statics.dto.LinkStaticsDto;
+import me.dragonappear.domain.statistics.dto.LinkStatisticsDto;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,11 +14,11 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class LinkStaticsService {
+public class LinkStatisticsService {
 
     private final ElasticsearchClient elasticsearchClient;
 
-    public List<LinkStaticsDto> getLinkStaticsPer7days(String shortId) throws IOException {
+    public List<LinkStatisticsDto> getLinkStaticsPer7days(String shortId) throws IOException {
 
         SearchResponse<Object> search = elasticsearchClient.search(s -> s
                 .index("short-link-log-*")
@@ -35,7 +35,7 @@ public class LinkStaticsService {
             String date = stringValue.substring(idx + 1); // 2023.04.10
             String docCount = String.valueOf(bucket.docCount());
 
-            return new LinkStaticsDto(date, docCount);
+            return new LinkStatisticsDto(date, docCount);
 
         }).toList();
     }
