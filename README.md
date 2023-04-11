@@ -6,6 +6,15 @@ This is a tiny url system design project that accommodates 1 billion requests a 
 
 ### Demonstration
 
+*url shorten*
+![shorten.gif](./shorten.gif)
+
+*redirection*
+![redirection.gif](./redirection.gif)
+
+*statistics*
+![statistics.png](./statistics.png)
+
 ---
 ## Tech
 
@@ -129,7 +138,8 @@ create index idx_client_info
   - When
     - Certain period
   - How
-    - Sort based on createdAt, and clean the data based on the front data.
+    - Indexing on `createdAt`
+    - Sort based on `createdAt`, and clean the data based on the front data.
 
 - ShortId concurrency
   - How
