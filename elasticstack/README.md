@@ -17,7 +17,6 @@
 
 ![architecture.png](./architecture.png)
 
-
 ---
 ## [Installation](https://www.elastic.co/kr/elastic-stack/)
 

@@ -15,7 +15,6 @@ To see details on each layer, click on
 - WAS: [Java](./java/README.md)
 - Caching: Redis
 - Data Clustering: [Kafka](./kafka/README.md), [ElasticStack](./elasticstack/README.md)
-- Infra: ECS
 
 ---
 ## System Architecture
@@ -25,8 +24,9 @@ To see details on each layer, click on
 ---
 ## Assumption & Prediction
 
+<details markdown="1">
+<summary style="font-size: large">Assumption</summary>
 
-### Assumption
 - 가정 1: Short URL은 Read Heavy 함.
     - Write 작업 수보다 Read 작업 수가 훨씬 더 많을 것으로  Read Heavy 하다고 가정
     - `read 및 redirection requests :write requests = 100:1`이라고 가정함.
@@ -34,9 +34,11 @@ To see details on each layer, click on
     - 요구 사항에는 없지만, 데이터를 3년 동안 저장해야 한다고 가정.
 - 가정 3: 각 데이터의 용량은 최대 500 Byte
 - 가정 4: Short URL은 8:2 법칙([파레토 원칙](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%A0%88%ED%86%A0_%EB%B2%95%EC%B9%99))을 따른다
+</details>
 
+<details markdown="1">
+<summary style="font-size: large">Prediction</summary>
 
-### Prediction
 - 예상 1: 가정 1에 따른 `Requests per day Estimates(하루동안 발생하는 요청수)`
     - `read 및 redirection requests per day`
         - approximately **990M(9억 9천만)**
@@ -64,8 +66,21 @@ To see details on each layer, click on
     - 하루 당 **990M Read Requests가 발생하므로, 이 중 20%만 캐싱을 한다고 하면 필요한 메모리 용량은**
         - **990M * 0.2 * 500Bytes = 대략 100GB**
         - 중복된 요청이 발생한다고 가정하면 실제 필요한 캐싱 용량은 **100GB** 보다 더 적을 것으로 예상된다.
+
+</details>
+
+<details markdown="1">
+<summary style="font-size: large">Total</summary>
+
+- Write Requests: **115.74/s**
+- Read Requests: **11458/s**
+- Incoming Data: **57.87KB**
+- Outgoing Data: **5.729MB**
+- Storage for 3 years: **5.4TB**
+- Memory for Caching: **100GB**
+
+</details>
     
-- 종합: `Total Estimates`
 
 ---
 ## How to build and run project
@@ -73,16 +88,20 @@ To see details on each layer, click on
 You must install npm, java and gradlew
 
 1. `docker-compose up -d`
-2. `cd java && ./gradlew clean build && java -jar *.jar`
-3. `cd nginx && npm install &&npm run dev`
-4. enter -> localhost:5173
+2. Create database name `tiny_link`
+3. `cd java && ./gradlew clean build && java -jar *.jar`
+4. `cd nginx && npm install && npm run dev`
+5. enter -> `localhost:5173`
 
+### Local Architecture
+
+![local-architecture](./local-architecture.png)
 
 ---
 
-## DB
+## Database
 
-RDBMS: mariaDB
+Database used on this project is MariaDB
 
 `ddl`
 ```sql
@@ -103,4 +122,35 @@ create index idx_client_info
     on short_link (user_agent, client_ip);
 ```
 
+---
+## TroubleShoot
 
+- Data cleaning
+  - When
+    - Certain period
+  - How
+    - Sort based on createdAt, and clean the data based on the front data.
+
+- ShortId concurrency
+  - How
+
+- ShortId preprocessing
+  - How
+    - In advance, create shortId in table that named `not used`
+    - If shortId used, that shortId move to `used` table
+    - ShortId monitoring with `not used` counts table
+    - When shortId reaches a certain percentage of use, supply new shortId with hasing functions 
+
+
+- When a database error occurs and data is not stored for a certain period of time
+  - How
+    - Api server, Web server creates publish to kafka
+    - So use kafka topic and elasticsearch data node
+
+- Security
+    1. Validate URL forms
+    2. Stores private url with permission level(public/private) column
+
+- Configuring the system to limit requests by unit time when only authorized users can make requests 
+  - use Authentication server in front of the API server.
+  - Use NoSQL to save the history of the request.

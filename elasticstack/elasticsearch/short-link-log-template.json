@@ -9,7 +9,6 @@ PUT _index_template/short-link-log-template
             "index": {
                 "lifecycle": {
                     "name": "short-link-log-policy",
-                    "rollover_alias": "moccozy-backend-business-log-info",
                     "parse_origination_date": true
                 }
             }
