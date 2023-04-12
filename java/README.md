@@ -7,6 +7,14 @@
 
 ---
 
+## How to build and run
+
+Before you run this project, you should run mariadb named tiny_link
+
+- `./gradlew clean build` && `java -jar build/libs/*.jar`
+
+---
+
 ## Entry Point
 
 | API                           | Description                                                                                | Detail Info                                                                          |
