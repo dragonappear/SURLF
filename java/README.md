@@ -15,6 +15,21 @@ Before you run this project, you should run mariadb named tiny_link
 
 ---
 
+## Edge Case
+
+Internal Server Error
+
+- ShortId 고갈
+- 동일한 ShortId로 DB에 Insert
+
+---
+
+## 성능 개선
+
+- ShortId 미리 생성
+
+---
+
 ## Entry Point
 
 | API                           | Description                                                                                | Detail Info                                                                          |
