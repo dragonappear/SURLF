@@ -138,6 +138,8 @@ create index idx_client_info
 ---
 ## TroubleShoot
 
+To see details on each layer, click on
+
 - [Data cleaning](https://velog.io/write?id=807a9447-9bd2-4880-8e32-d93da55368e9)
 
 - [Unique Key Concurrency](https://velog.io/@dragonappear/DB-Unique-Key-Concurrency)
@@ -145,15 +147,5 @@ create index idx_client_info
 - [Unique Key preprocessing](https://velog.io/@dragonappear/DB-Unique-Key-preprocessing)
 
 - [Database Error Handling](https://velog.io/@dragonappear/DB-Database-Error-Handling)
-- When a database error occurs and data is not stored for a certain period of time
-  - How
-    - Api server, Web server creates publish to kafka
-    - So use kafka topic and elasticsearch data node
 
 - [System Security](https://velog.io/@dragonappear/Security)
-    1. Validate URL forms
-    2. Stores private url with permission level(public/private) column
-
-- Configuring the system to limit requests by unit time when only authorized users can make requests 
-  - use Authentication server in front of the API server.
-  - Use NoSQL to save the history of the request.
