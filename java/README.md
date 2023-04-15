@@ -17,26 +17,22 @@ Before you run this project, you should run mariadb named tiny_link
 
 ## Edge Case
 
-Internal Server Error
-
-- ShortId 고갈
-- 동일한 ShortId로 DB에 Insert
-
----
-
-## 성능 개선
-
-- ShortId 미리 생성
+- Invalid URL parameter
+    - Invalid URL Format
+    - URL Empty
+- `ShortId` collision
+- `ShortId` lack
+- non-existing `ShortId`
 
 ---
 
 ## Entry Point
 
-| API                           | Description                                                                                | Detail Info                                                                          |
-|-------------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| `POST /short-links`           | API to generate Short Link with random ID when URL is entered                              | [/short-links](https://api.dragonappear.online/docs/post-short-links.html)           |
-| `GET /short-links/{short_id}` | API for querying 1 Short Link                                                              | [/short-links/{short_id}](https://api.dragonappear.online/docs/get-short-links.html) |
-| `GET /r/{short_id}`           | API that redirects to the URL that was originally entered when accessed through Short Link | [/r/{short_id}](https://api.dragonappear.online/docs/redirect-short-links.html)      |
+| API                           | Description                                                                                | Detail Info                                                                |
+|-------------------------------|--------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| `POST /short-links`           | API to generate Short Link with random ID when URL is entered                              | [/short-links](http://localhost:8080/docs/post-short-links.html)           |
+| `GET /short-links/{short_id}` | API for querying 1 Short Link                                                              | [/short-links/{short_id}](http://localhost:8080/docs/get-short-links.html) |
+| `GET /r/{short_id}`           | API that redirects to the URL that was originally entered when accessed through Short Link | [/r/{short_id}](http://localhost:8080/docs/redirect-short-links.html)      |
 
 ### Error code
 

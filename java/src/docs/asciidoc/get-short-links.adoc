@@ -1,0 +1,56 @@
+= GET /short-links/{short_id}
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 1
+:sectlinks:
+:homepage:  https://github.com/AB180-HR/230329-dragonappear#entry-point]
+
+---
+
+=== Curl
+
+include::{snippets}/get-short-links-success/curl-request.adoc[]
+
+---
+
+=== Request
+
+==== Message
+
+include::{snippets}/get-short-links-success/http-request.adoc[]
+
+==== Path parameters
+
+include::{snippets}/get-short-links-success/path-parameters.adoc[]
+
+---
+
+=== Success Response
+
+==== Message
+
+include::{snippets}/get-short-links-success/http-response.adoc[]
+
+==== Parameter
+
+include::{snippets}/get-short-links-success/response-fields.adoc[]
+
+---
+
+=== Failure Response
+
+==== Message
+
+include::{snippets}/get-short-links-failure/http-response.adoc[]
+
+==== Parameter
+
+include::{snippets}/get-short-links-failure/response-fields.adoc[]
+
+---
+
+=== Back
+
+https://github.com/AB180-HR/230329-dragonappear#entry-point

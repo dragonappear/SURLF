@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Rollback
 @Target(ElementType.TYPE)
-@AutoConfigureRestDocs(uriScheme = "https", uriHost = "api.dragonappear.online", uriPort = 443)
+@AutoConfigureRestDocs(uriScheme = "https", uriHost = "app.surlf.ly", uriPort = 443)
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(RestDocumentationExtension.class)
