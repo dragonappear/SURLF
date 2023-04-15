@@ -140,7 +140,7 @@ create index idx_client_info
 
 To see details on each layer, click on
 
-- [Data cleaning](https://velog.io/write?id=807a9447-9bd2-4880-8e32-d93da55368e9)
+- [Data cleaning](https://velog.io/@dragonappear/data-cleaning)
 
 - [Unique Key Concurrency](https://velog.io/@dragonappear/DB-Unique-Key-Concurrency)
 
