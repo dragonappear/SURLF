@@ -2,9 +2,10 @@
 
 ## [Description](https://velog.io/@dragonappear/Outline)
 
-- Tracking Link provides a service that allows users to navigate to the URL they want.
-- Various information can be attached to the Tracking Link as a parameter, in which case the URL becomes very long.
-- To solve this problem, we develop a function that shortens the URL and a tracking function.
+-   The project is a design system that responds to 1 billion traffic a day.
+-   Tracking Link provides a service that allows users to navigate to the URL they want.
+-   Various information can be attached to the Tracking Link as a parameter, in which case the URL becomes very long.
+-   To solve this problem, we develop a function that shortens the URL and a tracking function.
 
 ### Demonstration
 
