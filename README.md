@@ -1,19 +1,23 @@
 # Tiny Url API and Statistics System
 
-## Description
+## [Description](https://velog.io/@dragonappear/Outline)
 
-This is a tiny url system design project that accommodates 1 billion requests a day.
+- Tracking Link provides a service that allows users to navigate to the URL they want.
+- Various information can be attached to the Tracking Link as a parameter, in which case the URL becomes very long.
+- To solve this problem, we develop a function that shortens the URL and a tracking function.
 
 ### Demonstration
 
+**If the gif files below do not load, please wait.**
+
 *url shorten*
-![shorten.gif](./shorten.gif)
+![](https://velog.velcdn.com/images/dragonappear/post/56cc6833-0749-45ef-8c2c-1caf7829eeb5/image.gif)
 
 *redirection*
-![redirection.gif](./redirection.gif)
+![](https://velog.velcdn.com/images/dragonappear/post/58e7c65c-4cb9-4142-862b-6a54261d9cbb/image.gif)
 
 *statistics*
-![statistics.png](./statistics.png)
+![](https://velog.velcdn.com/images/dragonappear/post/c6623e75-85de-442f-99d4-a0a0a66abec2/image.png)
 
 ---
 ## Tech
@@ -26,12 +30,12 @@ To see details on each layer, click on
 - Data Clustering: [Kafka](./kafka/README.md), [ElasticStack](./elasticstack/README.md)
 
 ---
-## System Architecture
+## [System Architecture](https://velog.io/@dragonappear/System-Design)
 
 ![system](./system-architecture.png)
 
 ---
-## Assumption & Prediction
+## [Assumption & Prediction](https://velog.io/@dragonappear/Outline#%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%EA%B0%80%EC%A0%95-%EB%B0%8F-%EC%98%88%EC%83%81)
 
 <details markdown="1">
 <summary style="font-size: large">Assumption</summary>
@@ -134,30 +138,19 @@ create index idx_client_info
 ---
 ## TroubleShoot
 
-- Data cleaning
-  - When
-    - Certain period
-  - How
-    - Indexing on `createdAt`
-    - Sort based on `createdAt`, and clean the data based on the front data.
+- [Data cleaning](https://velog.io/write?id=807a9447-9bd2-4880-8e32-d93da55368e9)
 
-- ShortId concurrency
-  - How
+- [Unique Key Concurrency](https://velog.io/@dragonappear/DB-Unique-Key-Concurrency)
 
-- ShortId preprocessing
-  - How
-    - In advance, create shortId in table that named `not used`
-    - If shortId used, that shortId move to `used` table
-    - ShortId monitoring with `not used` counts table
-    - When shortId reaches a certain percentage of use, supply new shortId with hasing functions 
+- [Unique Key preprocessing](https://velog.io/@dragonappear/DB-Unique-Key-preprocessing)
 
-
+- [Database Error Handling](https://velog.io/@dragonappear/DB-Database-Error-Handling)
 - When a database error occurs and data is not stored for a certain period of time
   - How
     - Api server, Web server creates publish to kafka
     - So use kafka topic and elasticsearch data node
 
-- Security
+- [System Security](https://velog.io/@dragonappear/Security)
     1. Validate URL forms
     2. Stores private url with permission level(public/private) column
 
