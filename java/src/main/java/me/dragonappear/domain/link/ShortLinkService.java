@@ -29,11 +29,21 @@ public class ShortLinkService {
 
     private final ShortLinkRepository shortLinkRepository;
 
+    // TODO test about exception
     public ShortLinkEntity createShortLink(String url, String clientIp, String userAgent) {
-        String randomShortId = createRandomShortId();
-        ShortLinkEntity newShortLinkEntity = ShortLinkEntity.createShortUrlEntity(url, randomShortId, clientIp, userAgent);
-        return shortLinkRepository.save(newShortLinkEntity);
+        for (int i = 0; i < 5; i++) {
+            String randomShortId = createRandomShortId();
+            ShortLinkEntity newShortLinkEntity = ShortLinkEntity.createShortUrlEntity(url, randomShortId, clientIp, userAgent);
+            Exception exceptionHolder = null;
+            try {
+                return shortLinkRepository.save(newShortLinkEntity);
+            } catch (Exception e) {
+                exceptionHolder = e;
+            }
+        }
+        throw new Custom5xxException(EXHAUSTED_SHORT_LINK);
     }
+
 
     @Cacheable(value = "ShortLinkEntity", key = "#shortId", cacheManager = "cacheManager")
     public ShortLinkEntity getShortLink(String shortId) {
