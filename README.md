@@ -12,7 +12,7 @@
 **If the gif files below do not load, please wait.**
 
 *url shorten*
-![](https://velog.velcdn.com/images/dragonappear/post/56cc6833-0749-45ef-8c2c-1caf7829eeb5/image.gif)
+![](./shorten.gif)
 
 *redirection*
 ![](https://velog.velcdn.com/images/dragonappear/post/58e7c65c-4cb9-4142-862b-6a54261d9cbb/image.gif)
@@ -99,7 +99,7 @@ To see details on each layer, click on
 ---
 ## How to build and run project
 
-You must install npm, java and gradlew
+You must install docker, npm, jdk17 and gradlew
 
 1. `docker-compose up -d`
 2. Create database name `tiny_link`
@@ -139,7 +139,7 @@ create index idx_client_info
 ---
 ## TroubleShoot
 
-To see details on each layer, click on
+To see details on each link, click on
 
 - [Data cleaning](https://velog.io/@dragonappear/data-cleaning)
 
