@@ -28,12 +28,12 @@ Before you run this project, you should run mariadb named tiny_link
 
 ## Entry Point
 
-| API                           | Description                                                                                | Detail Info                                                                |
-|-------------------------------|--------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
-| `POST /short-links`           | API to generate Short Link with random ID when URL is entered                              | [/short-links](http://localhost:8080/docs/post-short-links.html)           |
-| `GET /short-links/{short_id}` | API for querying 1 Short Link                                                              | [/short-links/{short_id}](http://localhost:8080/docs/get-short-links.html) |
-| `GET /r/{short_id}`           | API that redirects to the URL that was originally entered when accessed through Short Link | [/r/{short_id}](http://localhost:8080/docs/redirect-short-links.html)      |
-| `GET /statistics/{short_id}`  | API that provides weekly request statistics for Short Link                                 | [/r/{short_id}](http://localhost:8080/docs/redirect-short-links.html)      |
+| API                           | Description                                                                                | Detail Info                                                                    |
+|-------------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| `POST /short-links`           | API to generate Short Link with random ID when URL is entered                              | [/short-links](http://localhost:8080/docs/post-short-links.html)               |
+| `GET /short-links/{short_id}` | API for querying 1 Short Link                                                              | [/short-links/{short_id}](http://localhost:8080/docs/get-short-links.html)     |
+| `GET /r/{short_id}`           | API that redirects to the URL that was originally entered when accessed through Short Link | [/r/{short_id}](http://localhost:8080/docs/redirect-short-links.html)          |
+| `GET /statistics/{short_id}`  | API that provides weekly request statistics for Short Link                                 | [/statistics/{short_id}](http://localhost:8080/docs/redirect-short-links.html) |
 
 ### Error code
 
