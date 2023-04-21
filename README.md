@@ -26,7 +26,7 @@
 To see details on each layer, click on
 
 - Web Server: [Nginx with Vue.js3 ](./nginx/README.md)
-- WAS: [Java](./java/README.md)
+- WAS: [SpringBoot](./springboot)
 - Caching: Redis
 - Data Clustering: [Kafka](./kafka/README.md), [ElasticStack](./elasticstack/README.md)
 
