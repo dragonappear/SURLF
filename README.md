@@ -103,7 +103,7 @@ You must install docker, npm, jdk17 and gradlew
 
 1. `docker-compose up -d`
 2. Create database name `tiny_link`
-3. `cd java && ./gradlew clean build && java -jar *.jar`
+3. `cd springboot && ./gradlew clean build && java -jar *.jar`
 4. `cd nginx && npm install && npm run dev`
 5. enter -> `localhost:5173`
 
